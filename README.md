@@ -6,17 +6,17 @@
 
 ## Quick Pitch
 
-Turn one field photo into an actionable Field Action Card in seconds. PocketRescue uses client-side image processing to compute vegetation health indices, fetches a 3-day weather forecast, and generates science-backed intervention recommendations—all without sending your photos to any server.
+Turn one field photo into an actionable Field Action Card in seconds. PocketRescue uses client-side image processing to compute vegetation health indices, fetches a 3-day weather forecast, and generates science-backed intervention recommendations - all without sending your photos to any server.
 
 ## Elevator Pitch
 
-PocketRescue is a Progressive Web App that empowers farmers and agronomists to make data-driven field decisions instantly. Capture a photo, select your crop type, and get a personalized Field Action Card with vegetation health scores, risk assessments, and prioritized interventions—all processed locally on your device for complete privacy.
+PocketRescue is a Progressive Web App that empowers farmers and agronomists to make data-driven field decisions instantly. Capture a photo, select your crop type, and get a personalized Field Action Card with vegetation health scores, risk assessments, and prioritized interventions - all processed locally on your device for complete privacy.
 
 ---
 
 ## Features
 
-- **Client-side processing**: All image processing happens locally on your device—no backend, no database, no photo transmission
+- **Client-side processing**: All image processing happens locally on your device - no backend, no database, no photo transmission
 - **Vegetation health analysis**: Computes ExG and NDVI-proxy indices with visual heatmap overlay
 - **Weather integration**: Fetches 3-day forecast from Open-Meteo API to assess drought, flood, or stress risk
 - **Crop-specific guidance**: Provides 3 prioritized interventions tailored to crop type (wheat, barley, maize, sunflower, potato, vegetables, orchard) and risk level
@@ -55,7 +55,7 @@ You can verify this by opening your browser's Network tab and observing that:
 
 - Node.js 16+ and npm 7+
 - A modern web browser (Chrome, Firefox, Safari, Edge)
-- Camera or file access for photo input (optional—sample images provided for demo)
+- Camera or file access for photo input (optional - sample images provided for demo)
 
 ### Installation
 
@@ -160,16 +160,16 @@ ExG = (2·G - R - B) / (2·G + R + B + ε)
 ```
 
 Where:
-- R, G, B = Red, Green, Blue channel values (0–255)
+- R, G, B = Red, Green, Blue channel values (0-255)
 - ε = 0.0001 (small constant to avoid division by zero)
-- Result range: [−1, 1]
+- Result range: [-1, 1]
 
 **Interpretation:**
 - ExG > 0.35: Healthy vegetation (green)
 - 0.05 ≤ ExG < 0.35: Fair vegetation (yellow)
 - ExG < 0.05: Poor vegetation (red)
 
-**Source:** Woebbecke et al. (1995). "Color Indices for Weed Identification Under Various Soil, Residue, and Lighting Conditions." *Transactions of the ASAE*, 38(1), 259–269.
+**Source:** Woebbecke et al. (1995). "Color Indices for Weed Identification Under Various Soil, Residue, and Lighting Conditions." *Transactions of the ASAE*, 38(1), 259-269.
 
 #### NDVI-proxy (Normalized Difference Vegetation Index Approximation)
 
@@ -179,9 +179,9 @@ NDVI-proxy = (G - R) / (G + R + ε)
 ```
 
 Where:
-- R, G = Red and Green channel values (0–255)
+- R, G = Red and Green channel values (0-255)
 - ε = 0.0001 (small constant to avoid division by zero)
-- Result range: [−1, 1]
+- Result range: [-1, 1]
 
 **Interpretation:**
 - NDVI-proxy > 0.35: Healthy vegetation (green)
@@ -190,7 +190,7 @@ Where:
 
 **Note:** This is an approximation of the true NDVI, which requires near-infrared (NIR) data. The NDVI-proxy uses only RGB channels and provides a reasonable proxy for vegetation health assessment.
 
-**Source:** Gitelson et al. (2002). "Remote Estimation of Crop and Grass Chlorophyll and Nitrogen Content Using Multi-Angle Vegetation Indices." *Remote Sensing of Environment*, 112(8), 3437–3449.
+**Source:** Gitelson et al. (2002). "Remote Estimation of Crop and Grass Chlorophyll and Nitrogen Content Using Multi-Angle Vegetation Indices." *Remote Sensing of Environment*, 112(8), 3437-3449.
 
 ### Risk Assessment Thresholds
 
@@ -229,69 +229,6 @@ Interventions are selected based on crop type, vegetation index, and risk level.
 - International Potato Center (CIP)
 
 See `src/heuristics.json` for complete intervention mappings and reasoning.
-
----
-
-## Demo Script (30–60 seconds)
-
-### Setup
-- Open PocketRescue in a web browser
-- Ensure camera/file access is enabled (or use sample images)
-
-### Steps
-
-1. **Landing Screen** (5 sec)
-   - App displays: "PocketRescue — Field Action Card Generator"
-   - Logo visible in header (top-left)
-   - "How it works?" link in header (top-right)
-   - Footer with developer info, Privacy Policy, and Terms of Use
-
-2. **Sample Image Selection** (5 sec)
-   - Click "Load sample image" button
-   - Modal shows 3 sample images: wheat, maize, potato
-   - Click "Select" on any image (e.g., wheat)
-
-3. **Crop Selection** (5 sec)
-   - Dropdown appears with crop types: wheat, barley, maize, sunflower, potato, vegetables, orchard
-   - Crop is pre-selected based on sample image
-   - Click "Capture field photo" button
-
-4. **Geolocation** (5 sec)
-   - App requests geolocation or offers manual entry
-   - For demo, use default coordinates or enter manually
-   - Click "Confirm"
-
-5. **Processing** (3 sec)
-   - Progress indicator shows: "Downsample → Compute indices → Generate heatmap"
-   - Heatmap overlay appears with color-coded vegetation health
-   - Score meter animates from 0 to final score (e.g., 65/100)
-
-6. **Field Action Card** (10 sec)
-   - Card displays:
-     - Thumbnail photo (top-left)
-     - Score badge + meter (top-right, color-coded)
-     - 3-line risk summary (center)
-     - 3 prioritized interventions with timing (middle)
-     - QR code (bottom-right)
-
-7. **Export & Share** (10 sec)
-   - Click "Download PDF" → PDF downloads to device (includes QR code)
-   - Click "Download PNG" → PNG downloads to device (includes QR code)
-   - Click "Share URL" → URL copied to clipboard
-   - Click "Explain" → Modal shows heuristic thresholds and decision logic
-   - Open shared URL in another browser → Card reconstructs identically
-
-8. **Offline Demo** (optional, 10 sec)
-   - Turn off network (or use browser DevTools to simulate offline)
-   - Refresh app → "Demo mode (cached forecast)" banner appears
-   - Process another image → Indices computed, cached forecast used
-   - Verify no network requests in DevTools Network tab
-
-9. **Footer Navigation** (5 sec)
-   - Click "How it works" → Modal with feature explanation
-   - Click "Privacy Policy" → Modal with privacy guarantees
-   - Click "Terms of Use" → Modal with terms and agricultural disclaimer
-   - Developer contact info visible in footer
 
 ---
 
@@ -513,5 +450,6 @@ cd pocket-rescue
 
 ---
 
-**Last updated**: November 26, 2024
+**Last updated**: November 26, 2025
+
 
