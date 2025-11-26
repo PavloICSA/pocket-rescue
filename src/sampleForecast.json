@@ -1,0 +1,35 @@
+{
+  "lat": 51.5074,
+  "lon": -0.1278,
+  "precipitationMm": 12.5,
+  "tempMin": 8,
+  "tempMax": 18,
+  "source": "cached",
+  "timestamp": "2024-11-25T10:30:00Z",
+  "daily": [
+    {
+      "date": "2024-11-25",
+      "precipitationMm": 2.5,
+      "tempMin": 8,
+      "tempMax": 15,
+      "humidity": 65,
+      "windSpeed": 12
+    },
+    {
+      "date": "2024-11-26",
+      "precipitationMm": 5.0,
+      "tempMin": 7,
+      "tempMax": 14,
+      "humidity": 72,
+      "windSpeed": 15
+    },
+    {
+      "date": "2024-11-27",
+      "precipitationMm": 5.0,
+      "tempMin": 9,
+      "tempMax": 18,
+      "humidity": 58,
+      "windSpeed": 10
+    }
+  ]
+}

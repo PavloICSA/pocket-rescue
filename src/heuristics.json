@@ -1,0 +1,411 @@
+{
+  "_metadata": {
+    "description": "Intervention mappings for PocketRescue Field Action Card system",
+    "version": "1.0",
+    "lastUpdated": "2024-11-26",
+    "sources": [
+      "FAO Crop Water Information: Wheat, Barley, Maize, Sunflower, Potato",
+      "USDA Integrated Pest Management (IPM) Guidelines",
+      "University Extension Services: Crop Management Best Practices",
+      "CGIAR Research Program on Climate Change, Agriculture and Food Security (CCAFS)",
+      "International Maize and Wheat Improvement Center (CIMMYT)",
+      "International Potato Center (CIP)"
+    ],
+    "reasoning": {
+      "HIGH_risk": "Triggered when vegetation index < 0.18 with drought (precip < 5mm) or flood (precip > 40mm) conditions, or critical stress (index < 0.05). Interventions prioritize immediate action to prevent crop loss.",
+      "MEDIUM_risk": "Triggered when vegetation index is moderate (0.18-0.35) or conditions are borderline. Interventions focus on monitoring and preventive measures.",
+      "LOW_risk": "Triggered when vegetation index is healthy (> 0.35) and weather conditions are favorable. Interventions focus on routine management and documentation."
+    },
+    "thresholds": {
+      "vegetationIndex": {
+        "critical": "< 0.05",
+        "low": "0.05 - 0.18",
+        "moderate": "0.18 - 0.35",
+        "healthy": "> 0.35"
+      },
+      "precipitation_3day": {
+        "drought": "< 5 mm",
+        "normal": "5 - 40 mm",
+        "flood": "> 40 mm"
+      }
+    }
+  },
+  "wheat": {
+    "_notes": "Wheat is sensitive to drought stress during grain filling (Zadoks 60-90). Early detection allows for irrigation adjustment and nutrient management. Critical period: flowering to grain maturity. Sources: FAO Wheat Water Requirements, CIMMYT Wheat Management.",
+    "HIGH": [
+      {
+        "action": "Start moisture monitoring with tensiometers",
+        "timing": "immediately",
+        "reasoning": "Quantify soil water availability to guide irrigation decisions during critical grain-filling period"
+      },
+      {
+        "action": "Apply light foliar feed if nutrient-deficit suspected",
+        "timing": "within 2 days",
+        "reasoning": "Foliar application bypasses root uptake limitations under drought stress; improves grain quality"
+      },
+      {
+        "action": "Delay nitrogen top-up if drought risk high",
+        "timing": "within 3 days",
+        "reasoning": "Excess nitrogen under drought increases osmotic stress and reduces water use efficiency"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture levels regularly",
+        "timing": "daily",
+        "reasoning": "Detect moisture trends early to optimize irrigation timing and prevent stress"
+      },
+      {
+        "action": "Scout for pest and disease pressure",
+        "timing": "within 3 days",
+        "reasoning": "Stressed plants are more susceptible to Septoria, Fusarium, and aphids"
+      },
+      {
+        "action": "Plan irrigation schedule based on forecast",
+        "timing": "within 2 days",
+        "reasoning": "Align irrigation with weather forecast to maximize water use efficiency and reduce disease pressure"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue routine field monitoring",
+        "timing": "weekly",
+        "reasoning": "Maintain standard management practices; monitor for maturity"
+      },
+      {
+        "action": "Plan nutrient application timing",
+        "timing": "within 1 week",
+        "reasoning": "Optimize nutrient uptake during favorable conditions; prepare for harvest"
+      },
+      {
+        "action": "Document field conditions for records",
+        "timing": "within 3 days",
+        "reasoning": "Build historical data for future crop planning and yield prediction"
+      }
+    ]
+  },
+  "barley": {
+    "_notes": "Barley is susceptible to powdery mildew and rust, especially under stress. Grain quality depends on timely maturity. Critical period: heading to grain maturity. Sources: USDA Barley IPM, University Extension Barley Management.",
+    "HIGH": [
+      {
+        "action": "Increase irrigation frequency if drought risk",
+        "timing": "immediately",
+        "reasoning": "Barley requires consistent moisture during grain filling to prevent shriveled grain"
+      },
+      {
+        "action": "Check for disease symptoms (powdery mildew, rust)",
+        "timing": "within 1 day",
+        "reasoning": "Stressed plants are highly susceptible; early detection allows for fungicide application"
+      },
+      {
+        "action": "Apply fungicide if disease pressure detected",
+        "timing": "within 2 days",
+        "reasoning": "Fungal diseases can reduce yield by 20-40% if untreated; timing is critical"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture and adjust irrigation",
+        "timing": "every 2 days",
+        "reasoning": "Maintain consistent moisture to support grain development and reduce disease pressure"
+      },
+      {
+        "action": "Scout for pest activity",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for Hessian flies, armyworms, and other pests common in barley"
+      },
+      {
+        "action": "Plan harvest timing based on maturity",
+        "timing": "within 1 week",
+        "reasoning": "Harvest at optimal moisture (12-14%) to maximize grain quality and minimize losses"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue standard field management",
+        "timing": "weekly",
+        "reasoning": "Maintain routine monitoring and management practices"
+      },
+      {
+        "action": "Monitor grain fill progress",
+        "timing": "within 1 week",
+        "reasoning": "Track development to plan harvest timing and assess final yield potential"
+      },
+      {
+        "action": "Prepare harvest equipment",
+        "timing": "within 2 weeks",
+        "reasoning": "Ensure equipment is ready for timely harvest at optimal grain moisture"
+      }
+    ]
+  },
+  "maize": {
+    "_notes": "Maize is highly sensitive to drought during pollination (V12-R1). Corn borers and armyworms are major pests. Critical period: tasseling to silking. Sources: USDA Corn IPM, CIMMYT Maize Management.",
+    "HIGH": [
+      {
+        "action": "Implement emergency irrigation if available",
+        "timing": "immediately",
+        "reasoning": "Drought during pollination can reduce yield by 50%+ per day of stress; irrigation is critical"
+      },
+      {
+        "action": "Scout for corn borer and armyworm damage",
+        "timing": "within 1 day",
+        "reasoning": "Stressed plants are more susceptible to insect damage; early detection allows for treatment"
+      },
+      {
+        "action": "Apply insecticide if pest pressure high",
+        "timing": "within 2 days",
+        "reasoning": "Corn borers can cause 10-15% yield loss; armyworms can defoliate rapidly"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture and plan irrigation",
+        "timing": "every 2 days",
+        "reasoning": "Maintain consistent moisture during critical growth stages (V6-R3)"
+      },
+      {
+        "action": "Check for disease symptoms (leaf spots, rusts)",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for Gray Leaf Spot, Northern Corn Leaf Blight, and rust diseases"
+      },
+      {
+        "action": "Scout for pest activity regularly",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for aphids, spider mites, and other pests that thrive under stress"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue routine field monitoring",
+        "timing": "weekly",
+        "reasoning": "Maintain standard management practices; monitor for maturity"
+      },
+      {
+        "action": "Monitor ear development and pollination",
+        "timing": "within 1 week",
+        "reasoning": "Ensure successful pollination and kernel set for optimal yield"
+      },
+      {
+        "action": "Plan harvest timing",
+        "timing": "within 2 weeks",
+        "reasoning": "Harvest at optimal grain moisture (15-20%) to minimize losses and maximize quality"
+      }
+    ]
+  },
+  "sunflower": {
+    "_notes": "Sunflower is moderately drought-tolerant but susceptible to head rot and fungal diseases. Critical period: flowering to seed maturity. Sources: FAO Sunflower Water Requirements, University Extension Sunflower Management.",
+    "HIGH": [
+      {
+        "action": "Increase irrigation if drought conditions",
+        "timing": "immediately",
+        "reasoning": "Drought during flowering reduces seed set and oil content; irrigation improves yield"
+      },
+      {
+        "action": "Scout for head rot and fungal diseases",
+        "timing": "within 1 day",
+        "reasoning": "Sclerotinia head rot can destroy entire heads; early detection allows for management"
+      },
+      {
+        "action": "Apply fungicide if disease detected",
+        "timing": "within 2 days",
+        "reasoning": "Fungal diseases can reduce yield by 30-50%; preventive treatment is more effective"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture levels",
+        "timing": "every 2 days",
+        "reasoning": "Maintain adequate moisture during seed development to maximize yield and oil content"
+      },
+      {
+        "action": "Scout for pest damage (birds, insects)",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for sunflower beetles, stem weevils, and bird damage to developing heads"
+      },
+      {
+        "action": "Plan irrigation schedule",
+        "timing": "within 2 days",
+        "reasoning": "Optimize irrigation timing based on growth stage and weather forecast"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue standard field management",
+        "timing": "weekly",
+        "reasoning": "Maintain routine monitoring and management practices"
+      },
+      {
+        "action": "Monitor head development",
+        "timing": "within 1 week",
+        "reasoning": "Track seed development and maturity for harvest timing"
+      },
+      {
+        "action": "Plan harvest timing",
+        "timing": "within 2 weeks",
+        "reasoning": "Harvest when back of head turns brown (moisture ~12%) to maximize seed quality"
+      }
+    ]
+  },
+  "potato": {
+    "_notes": "Potato is highly susceptible to late blight (Phytophthora infestans) and early blight. Requires consistent moisture. Critical period: tuber initiation to bulking (V4-V8). Sources: CIP Potato Management, USDA Potato IPM.",
+    "HIGH": [
+      {
+        "action": "Increase irrigation immediately",
+        "timing": "immediately",
+        "reasoning": "Potato requires 400-600mm water; drought stress reduces tuber size and increases disease susceptibility"
+      },
+      {
+        "action": "Scout for late blight and early blight",
+        "timing": "within 1 day",
+        "reasoning": "Late blight can destroy entire crop in 7-10 days under favorable conditions; early detection is critical"
+      },
+      {
+        "action": "Apply fungicide if disease pressure high",
+        "timing": "within 1 day",
+        "reasoning": "Fungal diseases can cause 50-100% crop loss; preventive treatment is essential"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture and adjust irrigation",
+        "timing": "every 2 days",
+        "reasoning": "Maintain consistent moisture (60-80% field capacity) during tuber bulking"
+      },
+      {
+        "action": "Scout for pest damage (Colorado beetle, aphids)",
+        "timing": "within 3 days",
+        "reasoning": "Colorado beetles can defoliate plants; aphids transmit viruses"
+      },
+      {
+        "action": "Check for disease symptoms regularly",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for early blight, late blight, and virus symptoms"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue routine field monitoring",
+        "timing": "weekly",
+        "reasoning": "Maintain standard management practices; monitor for maturity"
+      },
+      {
+        "action": "Monitor tuber development",
+        "timing": "within 1 week",
+        "reasoning": "Track tuber bulking and assess final yield potential"
+      },
+      {
+        "action": "Plan harvest timing",
+        "timing": "within 2 weeks",
+        "reasoning": "Harvest when vines senesce (8-10 weeks after planting) to maximize tuber size and skin set"
+      }
+    ]
+  },
+  "vegetables": {
+    "_notes": "Vegetables include diverse crops (tomato, lettuce, cabbage, etc.) with varying water and pest management needs. General guidance applies to most vegetable crops. Critical period: flowering to harvest.",
+    "HIGH": [
+      {
+        "action": "Increase irrigation frequency immediately",
+        "timing": "immediately",
+        "reasoning": "Most vegetables require consistent moisture; drought stress reduces yield and quality"
+      },
+      {
+        "action": "Scout for disease and pest damage",
+        "timing": "within 1 day",
+        "reasoning": "Stressed plants are more susceptible to diseases and pests; early detection allows for treatment"
+      },
+      {
+        "action": "Apply protective spray if needed",
+        "timing": "within 2 days",
+        "reasoning": "Fungal and bacterial diseases can spread rapidly; preventive treatment is more effective"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture and adjust watering",
+        "timing": "every 2 days",
+        "reasoning": "Maintain consistent moisture to support growth and reduce disease pressure"
+      },
+      {
+        "action": "Scout for pest and disease activity",
+        "timing": "within 3 days",
+        "reasoning": "Monitor for common vegetable pests (aphids, whiteflies, caterpillars) and diseases"
+      },
+      {
+        "action": "Plan harvest schedule",
+        "timing": "within 2 days",
+        "reasoning": "Optimize harvest timing for quality and market readiness"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue standard field management",
+        "timing": "weekly",
+        "reasoning": "Maintain routine monitoring and management practices"
+      },
+      {
+        "action": "Monitor crop development",
+        "timing": "within 1 week",
+        "reasoning": "Track growth and development for harvest planning"
+      },
+      {
+        "action": "Plan harvest timing",
+        "timing": "within 1 week",
+        "reasoning": "Harvest at optimal maturity for quality and shelf life"
+      }
+    ]
+  },
+  "orchard": {
+    "_notes": "Orchard crops (apple, citrus, stone fruits) have longer growing seasons and require consistent management. Critical period: flowering to fruit maturity. Sources: FAO Orchard Management, University Extension Fruit Crop Management.",
+    "HIGH": [
+      {
+        "action": "Implement irrigation if available",
+        "timing": "immediately",
+        "reasoning": "Drought stress during fruit development reduces fruit size and quality; irrigation is critical"
+      },
+      {
+        "action": "Scout for pest and disease damage",
+        "timing": "within 1 day",
+        "reasoning": "Stressed trees are more susceptible to pests and diseases; early detection allows for treatment"
+      },
+      {
+        "action": "Apply treatment if pest pressure high",
+        "timing": "within 2 days",
+        "reasoning": "Common orchard pests (codling moth, scale insects) can cause significant damage if untreated"
+      }
+    ],
+    "MEDIUM": [
+      {
+        "action": "Monitor soil moisture and plan irrigation",
+        "timing": "every 3 days",
+        "reasoning": "Maintain consistent moisture during fruit development to support growth and quality"
+      },
+      {
+        "action": "Scout for pest and disease activity",
+        "timing": "within 1 week",
+        "reasoning": "Monitor for common orchard diseases (powdery mildew, scab, canker) and pests"
+      },
+      {
+        "action": "Plan nutrient application",
+        "timing": "within 1 week",
+        "reasoning": "Apply nutrients based on growth stage and soil analysis to support fruit development"
+      }
+    ],
+    "LOW": [
+      {
+        "action": "Continue routine orchard management",
+        "timing": "weekly",
+        "reasoning": "Maintain standard management practices; monitor for fruit maturity"
+      },
+      {
+        "action": "Monitor fruit development",
+        "timing": "within 1 week",
+        "reasoning": "Track fruit growth and assess final yield potential"
+      },
+      {
+        "action": "Plan harvest timing",
+        "timing": "within 2 weeks",
+        "reasoning": "Harvest at optimal maturity for quality and storage potential"
+      }
+    ]
+  }
+}
