@@ -142,7 +142,8 @@ export function generateHeatmap(indices, width, height) {
 
 /**
  * Compute global vegetation score from indices
- * Scales mean index from [-1, 1] range to [0, 100] range
+ * Strategy: Compute mean of vegetation pixels only (index > 0.05)
+ * This avoids soil/background pixels dragging down the score
  * PRIVACY: Pure local computation - no external calls
  * @param {Float32Array} indices - Vegetation index values (range: -1 to 1)
  * @returns {number} Global score (0-100)
@@ -150,14 +151,52 @@ export function generateHeatmap(indices, width, height) {
 export function computeGlobalScore(indices) {
   if (indices.length === 0) return 0;
   
-  let sum = 0;
+  // Separate vegetation and non-vegetation pixels
+  let vegetationSum = 0;
+  let vegetationCount = 0;
+  let nonVegetationSum = 0;
+  let nonVegetationCount = 0;
+  
   for (let i = 0; i < indices.length; i++) {
-    sum += indices[i];
+    if (indices[i] > 0.05) {
+      vegetationSum += indices[i];
+      vegetationCount++;
+    } else {
+      nonVegetationSum += indices[i];
+      nonVegetationCount++;
+    }
   }
   
-  const mean = sum / indices.length;
-  // Scale from [-1, 1] to [0, 100]
-  const score = ((mean + 1) / 2) * 100;
+  // If no vegetation pixels detected, return low score
+  if (vegetationCount === 0) {
+    const nonVegMean = nonVegetationSum / nonVegetationCount;
+    if (nonVegMean < -0.1) return 0;
+    if (nonVegMean < 0) return 10;
+    return 20;
+  }
+  
+  // If mostly non-vegetation, weight it down
+  const vegetationRatio = vegetationCount / indices.length;
+  const vegetationMean = vegetationSum / vegetationCount;
+  
+  // Compute score based on vegetation pixels only
+  let score;
+  if (vegetationMean < 0.1) {
+    score = 30 + (vegetationMean - 0.05) * 100; // 30-35: Very low vegetation
+  } else if (vegetationMean < 0.2) {
+    score = 35 + (vegetationMean - 0.1) * 150; // 35-50: Low vegetation
+  } else if (vegetationMean < 0.3) {
+    score = 50 + (vegetationMean - 0.2) * 200; // 50-70: Moderate vegetation
+  } else if (vegetationMean < 0.4) {
+    score = 70 + (vegetationMean - 0.3) * 200; // 70-90: Good vegetation
+  } else {
+    score = 90 + Math.min((vegetationMean - 0.4) * 100, 10); // 90-100: Excellent vegetation
+  }
+  
+  // Penalize if vegetation is sparse (less than 30% of image)
+  if (vegetationRatio < 0.3) {
+    score *= 0.8; // Reduce score by 20% if sparse
+  }
   
   return Math.round(score);
 }

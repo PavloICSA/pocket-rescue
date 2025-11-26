@@ -8,33 +8,38 @@ import heuristics from './heuristics.json';
 /**
  * Compute risk score based on vegetation index and precipitation
  * Rules:
- * - If precip < 5 mm AND index < 0.18: HIGH (drought)
- * - If precip > 40 mm AND index < 0.18: HIGH (flood)
- * - If index < 0.05: HIGH (critical stress)
+ * - If index < 0.02: HIGH (critical stress - no vegetation)
+ * - If precip < 5 mm AND index < 0.15: HIGH (drought)
+ * - If precip > 40 mm AND index < 0.15: HIGH (flood)
+ * - If index < 0.05: HIGH (very low vegetation)
  * - Otherwise: MEDIUM or LOW based on index and precipitation combination
  *
- * @param {number} vegetationIndex - Vegetation index value (typically 0-1 for ExG/NDVI-proxy normalized)
+ * @param {number} vegetationIndex - Vegetation index value (NDVI-proxy, range: -1 to 1)
  * @param {number} precipitationMm - Total precipitation in mm over 3-day period
  * @returns {string} Risk level: "HIGH", "MEDIUM", or "LOW"
  */
 export function computeRiskScore(vegetationIndex, precipitationMm) {
   // Critical vegetation stress takes highest priority
+  if (vegetationIndex < 0.02) {
+    return 'HIGH'; // No vegetation detected
+  }
+
   if (vegetationIndex < 0.05) {
-    return 'HIGH';
+    return 'HIGH'; // Very low vegetation - critical stress
   }
 
   // Drought risk: low precip + low vegetation
-  if (precipitationMm < 5 && vegetationIndex < 0.18) {
+  if (precipitationMm < 5 && vegetationIndex < 0.15) {
     return 'HIGH';
   }
 
   // Flood/stress risk: high precip + low vegetation
-  if (precipitationMm > 40 && vegetationIndex < 0.18) {
+  if (precipitationMm > 40 && vegetationIndex < 0.15) {
     return 'HIGH';
   }
 
   // Medium risk: moderate vegetation with some stress indicators
-  if (vegetationIndex < 0.25 || (precipitationMm > 30 && vegetationIndex < 0.35)) {
+  if (vegetationIndex < 0.20 || (precipitationMm > 30 && vegetationIndex < 0.25)) {
     return 'MEDIUM';
   }
 

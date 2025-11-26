@@ -82,25 +82,33 @@ export default function App() {
 
   const handlePhotoSelected = (photoDataURI) => {
     setSelectedPhoto(photoDataURI)
+    setProcessingResults(null) // Clear previous processing results
+    setCardData(null) // Clear previous card data
     setCurrentStep('geolocation')
   }
 
   const handleCameraCancel = () => {
+    setProcessingResults(null) // Clear processing results when canceling
+    setCardData(null) // Clear card data when canceling
     setCurrentStep('landing')
   }
 
   const handleSampleImageSelected = (photoDataURI, suggestedCrop) => {
     setSelectedPhoto(photoDataURI)
     setSelectedCrop(suggestedCrop)
+    setProcessingResults(null) // Clear previous processing results
+    setCardData(null) // Clear previous card data
     setCurrentStep('geolocation')
   }
 
   const handleGeolocationConfirmed = (location) => {
     setGeolocation(location)
+    setProcessingResults(null) // Clear processing results when confirming new location
     setCurrentStep('processing')
   }
 
   const handleGeolocationCancel = () => {
+    setProcessingResults(null) // Clear processing results when canceling
     setCurrentStep('camera')
   }
 
@@ -114,8 +122,13 @@ export default function App() {
         setIsDemoMode(true)
       }
 
-      // Use NDVI-proxy score for risk assessment (normalized to 0-1)
-      const vegetationIndex = results.globalScore / 100
+      // Use NDVI-proxy index for risk assessment (raw index value, not score)
+      // Compute mean of NDVI-proxy indices
+      let vegetationIndexSum = 0
+      for (let i = 0; i < results.ndviIndices.length; i++) {
+        vegetationIndexSum += results.ndviIndices[i]
+      }
+      const vegetationIndex = vegetationIndexSum / results.ndviIndices.length
 
       // Compute risk assessment
       const riskAssessment = computeRiskAssessment(
